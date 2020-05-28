@@ -20,7 +20,7 @@ const AuthPage: React.FC = () => {
   const registerHandler = async () => {
     try {
       const data = await request(
-        "https://short-ad.herokuapp.com/api/auth/register",
+        "/api/auth/register",
         "POST",
         { ...form },
         {}
@@ -34,7 +34,7 @@ const AuthPage: React.FC = () => {
   const loginHandler = async () => {
     try {
       const data = await request(
-        "https://short-ad.herokuapp.com/api/auth/login",
+        "/api/auth/login",
         "POST",
         { ...form },
         {}

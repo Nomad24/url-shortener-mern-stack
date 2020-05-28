@@ -13,7 +13,7 @@ const DetailPage: React.FC = () => {
   const getLink = useCallback(async () => {
     try {
       const fetched = await request(
-        `https://short-ad.herokuapp.com/api/link/${id}`,
+        `/api/link/${id}`,
         "GET",
         null,
         {

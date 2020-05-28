@@ -14,7 +14,7 @@ const HomePage: React.FC = () => {
     if (event.key === "Enter") {
       try {
         const data = await request(
-          "https://short-ad.herokuapp.com/api/link/generate-guest",
+          "/api/link/generate-guest",
           "POST",
           { from: ref.current!.value },
           {}

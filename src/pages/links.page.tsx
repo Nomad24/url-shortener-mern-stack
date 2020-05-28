@@ -13,7 +13,7 @@ const LinksPage: React.FC = () => {
     setLoad(true);
     try {
       const fetched = await request(
-        "https://short-ad.herokuapp.com/api/link/",
+        "/api/link/",
         "GET",
         null,
         {

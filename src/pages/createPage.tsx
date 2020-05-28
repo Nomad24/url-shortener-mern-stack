@@ -15,7 +15,7 @@ const CreatePage: React.FC = () => {
     if (event.key === "Enter") {
       try {
         const data = await request(
-          "https://short-ad.herokuapp.com/api/link/generate",
+          "/api/link/generate",
           "POST",
           { from: ref.current!.value },
           {

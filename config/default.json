@@ -1,0 +1,4 @@
+{
+    "secret": "Adil",
+    "DB_CONNECT": "mongodb+srv://Nomad24:qwerty123@cluster0-majc2.mongodb.net/app?retryWrites=true&w=majority"
+}

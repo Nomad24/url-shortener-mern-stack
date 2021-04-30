@@ -139,4 +139,21 @@ router.delete("/delete/:id", auth, async (req, res) => {
   }
 });
 
+router.put("/update/:id", auth, async (req, res) => {
+  try {
+    const {from, name} = req.body;
+
+    if(from) {
+      const link = await Link_brand_link.findByIdAndUpdate(req.params.id, {from: from, clicks: 0, date: new Date()});
+      res.status(200).json({ message: "Link was updated" });
+    }
+    if(name) {
+      const link = await Link_brand_link.findByIdAndUpdate(req.params.id, {name: name, clicks: 0, to: `https://short-an.herokuapp.com/t/${name}`, date: new Date()});
+      res.status(200).json({ message: "Link was updated" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong, try again" });
+  }
+});
+
 module.exports = router;

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import useHttp from "../hooks/usehttp";
 import useAuth from "../hooks/useAuth";
 import { ToastContainer, toast } from "react-toastify";
+import { Prompt, Alert } from "react-st-modal";
 import "react-toastify/dist/ReactToastify.css";
 
 interface Link {
@@ -18,17 +19,41 @@ export const LinkCard: React.FC<Link> = ({ link }) => {
 
   const delLink = async () => {
     try {
+      const data = await request(`/api/link/delete/${id}`, "DELETE", null, {
+        Authorization: Token.token,
+      });
+      toast.error(data.message);
+      setTimeout(() => {
+        history.push("/links");
+      }, 3000);
+    } catch (error) {
+      alert(error);
+      toast.error(error);
+    }
+  };
+
+  const updLink = async (val: string, type: string) => {
+    try {
+      let value = {};
+
+      if(type == "brand") {
+        value = {name: val};
+      }
+      if(type == "link") {
+        value = {from: val};
+      }
+
       const data = await request(
-        `/api/link/delete/${id}`,
-        "DELETE",
-        null,
+        `/api/link/update/${id}`,
+        "PUT",
+        value,
         {
           Authorization: Token.token,
         }
       );
-      toast.error(data.message);
+      toast.success(data.message);
       setTimeout(() => {
-        history.push('/links');
+        window.location.reload();
       }, 3000);
     } catch (error) {
       alert(error);
@@ -69,6 +94,40 @@ export const LinkCard: React.FC<Link> = ({ link }) => {
           >
             Delete Link
           </button>
+          <span> </span>
+          {link.name ? (
+            <button
+              onClick={async () => {
+                const val = await Prompt("Enter New Link", {
+                  isRequired: true,
+                });
+
+                updLink(val, "link");
+              }}
+              className="btn waves-light green darken-4"
+              type="submit"
+              name="action"
+            >
+              Update Link
+            </button>
+          ) : null}
+          <span> </span>
+          {link.name ? (
+            <button
+              onClick={async () => {
+                const val = await Prompt("Enter New Brand Name", {
+                  isRequired: true,
+                });
+
+                updLink(val, "brand");
+              }}
+              className="btn waves-light yellow darken-4"
+              type="submit"
+              name="action"
+            >
+              Update Brand Name
+            </button>
+          ) : null}
         </p>
       </div>
       <ToastContainer autoClose={2000}></ToastContainer>
